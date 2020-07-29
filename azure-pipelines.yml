@@ -13,9 +13,6 @@ variables:
   value: 1
 - name: ACR.Name
   value: 'ctcsandboxodpacr'
-- name: Azure.ServiceConnection
-  value: 'odp-acr-sp-connection'
-
 
 stages:
 - stage: build
@@ -26,14 +23,6 @@ stages:
     pool:
       vmImage: 'ubuntu-latest'
     steps:
-    - task: AzureCLI@2
-      displayName: Login to Azure Container Registry
-      inputs:
-        azureSubscription: "$(Azure.ServiceConnection)"
-        scriptType: bash
-        scriptLocation: inlineScript
-        inlineScript: |
-          az acr login --name $(ACR.Name)
     - task: HelmInstaller@1
       inputs:
         helmVersionToInstall: 'latest'
