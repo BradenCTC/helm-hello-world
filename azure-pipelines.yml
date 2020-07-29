@@ -10,7 +10,7 @@ pr: none
 variables:
   HELM_EXPERIMENTAL_OCI: 1
   ACR.Name: 'ctcsandboxodpacr'
-  Azure.ServiceConnection: 'odp-acr-connection'
+  Azure.ServiceConnection: 'odp-acr-sp-connection'
 
 stages:
 - stage: build
