@@ -39,5 +39,5 @@ stages:
         helmVersionToInstall: 'latest'
     - bash: |
         helm registry login $(ACR.Name).azurecr.io --username $(acr_sp_id) --password $(acr_sp_secret)
-        helm chart save . $(ACR.Name).azurecr.io/charts/realworld-backend:latest
-        helm chart push $(ACR.Name).azurecr.io/charts/realworld-backend:latest
+        helm chart save . $(ACR.Name).azurecr.io/charts/hello-world:latest
+        helm chart push $(ACR.Name).azurecr.io/charts/hello-world:latest
