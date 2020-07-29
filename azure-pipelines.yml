@@ -8,7 +8,7 @@ trigger:
 pr: none
 
 variables:
-- group: ACR SP
+  group: ACR SP
   HELM_EXPERIMENTAL_OCI: 1
   ACR.Name: 'ctcsandboxodpacr'
   Azure.ServiceConnection: 'odp-acr-sp-connection'
