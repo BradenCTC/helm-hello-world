@@ -8,10 +8,13 @@ trigger:
 pr: none
 
 variables:
-  group: ACR SP
-  HELM_EXPERIMENTAL_OCI: 1
-  ACR.Name: 'ctcsandboxodpacr'
-  Azure.ServiceConnection: 'odp-acr-sp-connection'
+- group: ACR SP
+- name: HELM_EXPERIMENTAL_OCI
+  value: 1
+- name: ACR.Name
+  value: 'ctcsandboxodpacr'
+- name: Azure.ServiceConnection
+  value: 'odp-acr-sp-connection'
 
 
 stages:
