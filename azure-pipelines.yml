@@ -1,0 +1,37 @@
+# Pipeline for pushing Helm Chart to ACR
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+trigger:
+- master
+
+pr: none
+
+variables:
+  HELM_EXPERIMENTAL_OCI: 1
+  ACR.Name: 'ctcsandboxodpacr'
+  Azure.ServiceConnection: 'odp-acr-connection'
+
+stages:
+- stage: build
+  displayName: Build and Push
+  jobs:  
+  - job: job_helm
+    displayName: Helm Publish
+    pool:
+      vmImage: 'ubuntu-latest'
+    steps:
+    - task: AzureCLI@2
+      displayName: Login to Azure Container Registry
+      inputs:
+        azureSubscription: "$(Azure.ServiceConnection)"
+        scriptType: bash
+        scriptLocation: inlineScript
+        inlineScript: |
+          az acr login --name $(ACR.Name)
+    - task: HelmInstaller@1
+      inputs:
+        helmVersionToInstall: 'latest'
+    - bash: |
+        helm chart save . $(ACR.Name).azurecr.io/charts/realworld-backend:latest
+        helm chart push $(ACR.Name).azurecr.io/charts/realworld-backend:latest
