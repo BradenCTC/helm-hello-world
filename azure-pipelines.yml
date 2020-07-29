@@ -8,9 +8,11 @@ trigger:
 pr: none
 
 variables:
+- group: ACR SP
   HELM_EXPERIMENTAL_OCI: 1
   ACR.Name: 'ctcsandboxodpacr'
   Azure.ServiceConnection: 'odp-acr-sp-connection'
+
 
 stages:
 - stage: build
@@ -33,5 +35,6 @@ stages:
       inputs:
         helmVersionToInstall: 'latest'
     - bash: |
+        helm registry login $(ACR.Name).azurecr.io --username $(acr_sp_id) --password $(acr_sp_secret)
         helm chart save . $(ACR.Name).azurecr.io/charts/realworld-backend:latest
         helm chart push $(ACR.Name).azurecr.io/charts/realworld-backend:latest
